@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+    id "org.springframework.boot" version "2.0.1.RELEASE"
+
+}
+
+version = '1.0.2'
+group = 'org.gradle.samples'
+
+
+repositories {
+    mavenCentral()
+}
+apply plugin: 'io.spring.dependency-management'
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation 'org.springframework.boot:spring-boot-starter'
+    compileOnly group: 'org.apache.spark', name: 'spark-sql_2.12', version: '2.4.4'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+tasks.named('test', Test) {
+    useJUnitPlatform()
+}

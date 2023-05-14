@@ -1,28 +1,18 @@
 package com.zhuinden.sparkexperiment;
 
 
-import org.apache.spark.SparkContext;
-import org.apache.spark.api.java.JavaPairRDD;
-import org.apache.spark.api.java.JavaRDD;
-import org.apache.spark.api.java.JavaSparkContext;
-import org.apache.spark.sql.*;
-import org.apache.spark.sql.types.DataType;
-import org.apache.spark.sql.types.StructField;
-import org.apache.spark.sql.types.StructType;
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.RelationalGroupedDataset;
+import org.apache.spark.sql.Row;
+import org.apache.spark.sql.SparkSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import scala.Tuple2;
-import scala.collection.JavaConversions;
-import scala.collection.Seq;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 import static org.apache.spark.sql.functions.col;
 /**
  * Created by achat1 on 9/23/15.
@@ -34,7 +24,7 @@ public class WordCount {
     private SparkSession sparkSession;
 
     public List<Count> count() {
-        String input = "hello world hello hello hello";
+        String input = "hello world hello hello hello,chandra shekhar shekhar";
         String[] _words = input.split(" ");
         List<Word> words = Arrays.stream(_words).map(Word::new).collect(Collectors.toList());
         Dataset<Row> dataFrame = sparkSession.createDataFrame(words, Word.class);
